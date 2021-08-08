@@ -9,9 +9,10 @@ import { stepOneSchema } from '@/lib/yup';
 import { StepOneData } from '@/types';
 
 import Seo from '@/components/Seo';
-import Input from '@/components/Forms/Input';
 import Button from '@/components/Button';
 import UnstyledLink from '@/components/UnstyledLink';
+import Input from '@/components/Forms/Input';
+import PasswordInput from '@/components/Forms/PasswordInput';
 
 export default function StepOnePage() {
   const router = useRouter();
@@ -66,7 +67,7 @@ export default function StepOnePage() {
               >
                 <Input label='Nama' id='name' />
                 <Input id='email' label='Email' />
-                <Input id='password' label='Password' />
+                <PasswordInput id='password' label='Password' />
                 <Input id='age' label='Age' />
                 <Input id='phone' label='Phone' helperText='Use +62 format' />
 

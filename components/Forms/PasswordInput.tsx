@@ -1,18 +1,12 @@
+import { useState } from 'react';
+import { useFormContext } from 'react-hook-form';
+import { HiEye, HiEyeOff } from 'react-icons/hi';
+
+import { classNames } from '@/lib/helper';
 import clsx from 'clsx';
-import { useFormContext, RegisterOptions } from 'react-hook-form';
-import { HiExclamationCircle } from 'react-icons/hi';
+import { InputProps } from './Input';
 
-export type InputProps = {
-  label: string;
-  id: string;
-  placeholder?: string;
-  helperText?: string;
-  type?: string;
-  readonly?: boolean;
-  validation?: RegisterOptions;
-} & React.ComponentPropsWithoutRef<'input'>;
-
-export default function Input({
+export default function PasswordInput({
   label,
   placeholder = '',
   helperText,
@@ -27,6 +21,9 @@ export default function Input({
     formState: { errors },
   } = useFormContext();
 
+  const [showPassword, setShowPassword] = useState(false);
+  const togglePassword = () => setShowPassword((prev) => !prev);
+
   return (
     <div>
       <label htmlFor={id} className='block text-sm font-normal text-gray-700'>
@@ -36,7 +33,7 @@ export default function Input({
         <input
           {...register(id, validation)}
           {...rest}
-          type={type}
+          type={showPassword ? 'text' : 'password'}
           name={id}
           id={id}
           readOnly={readonly}
@@ -52,11 +49,20 @@ export default function Input({
           aria-describedby={id}
         />
 
-        {errors[id] && (
-          <div className='absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none'>
-            <HiExclamationCircle className='text-xl text-red-500' />
-          </div>
-        )}
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            togglePassword();
+          }}
+          type='button'
+          className='absolute inset-y-0 right-0 flex items-center p-1 mr-3 rounded-lg focus:outline-none focus:ring focus:ring-primary-500'
+        >
+          {showPassword ? (
+            <HiEyeOff className='text-xl text-gray-500 cursor-pointer hover:text-gray-600' />
+          ) : (
+            <HiEye className='text-xl text-gray-500 cursor-pointer hover:text-gray-600' />
+          )}
+        </button>
       </div>
       <div className='mt-1'>
         {helperText && <p className='text-xs text-gray-500'>{helperText}</p>}
