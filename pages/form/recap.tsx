@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+import toast from 'react-hot-toast';
 import { useRouter } from 'next/router';
 import { FormProvider, useForm } from 'react-hook-form';
 import { HiChevronLeft, HiChevronRight } from 'react-icons/hi';
@@ -18,7 +20,20 @@ import CustomLink from '@/components/CustomLink';
 export default function RecapPage() {
   const router = useRouter();
 
-  const { stepOne, stepTwo, stepThree, setData } = useFormStore();
+  const { stepOne, stepTwo, stepThree } = useFormStore();
+
+  useEffect(() => {
+    if (!stepOne) {
+      toast.error('Please fill step one first');
+      router.push('/form/step-1');
+    } else if (!stepTwo) {
+      toast.error('Please fill step two first');
+      router.push('/form/step-2');
+    } else if (!stepThree) {
+      toast.error('Please fill step three first');
+      router.push('/form/step-3');
+    }
+  }, [router, stepOne, stepThree, stepTwo]);
 
   //#region //? forms ==================================
   const methods = useForm({

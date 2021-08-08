@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+import toast from 'react-hot-toast';
 import { useRouter } from 'next/router';
 import { FormProvider, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -16,7 +18,14 @@ import UnstyledLink from '@/components/UnstyledLink';
 export default function StepTwoPage() {
   const router = useRouter();
 
-  const { stepTwo, setData } = useFormStore();
+  const { stepOne, stepTwo, setData } = useFormStore();
+
+  useEffect(() => {
+    if (!stepOne) {
+      toast.error('Please fill step one first');
+      router.push('/form/step-1');
+    }
+  }, [router, stepOne]);
 
   //#region //? forms ==================================
   const methods = useForm({
