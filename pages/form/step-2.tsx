@@ -66,6 +66,7 @@ export default function StepTwoPage() {
                 <Input id='score_1' label='Score 1' />
                 <Input id='score_2' label='Score 2' />
                 <Input id='score_3' label='Score 3' />
+                <Input type='file' id='score_file' label='Score File' />
 
                 <Button type='submit'>Next</Button>
               </form>
