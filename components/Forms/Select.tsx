@@ -1,8 +1,9 @@
 import clsx from 'clsx';
-import { useFormContext, RegisterOptions } from 'react-hook-form';
+import { Children, cloneElement, isValidElement, ReactNode } from 'react';
+import { RegisterOptions, useFormContext } from 'react-hook-form';
 import { HiExclamationCircle } from 'react-icons/hi';
 
-export type InputProps = {
+export type SelectProps = {
   label: string;
   id: string;
   placeholder?: string;
@@ -10,22 +11,36 @@ export type InputProps = {
   type?: string;
   readOnly?: boolean;
   validation?: RegisterOptions;
-} & React.ComponentPropsWithoutRef<'input'>;
+  children: ReactNode;
+} & React.ComponentPropsWithoutRef<'select'>;
 
-export default function Input({
+export default function Select({
   label,
-  placeholder = '',
   helperText,
   id,
-  type = 'text',
+  placeholder,
   readOnly = false,
+  children,
   validation,
   ...rest
-}: InputProps) {
+}: SelectProps) {
   const {
     register,
     formState: { errors },
   } = useFormContext();
+
+  // Add disabled and selected attribute to option, will be used if readonly
+  const readOnlyChildren = Children.map<ReactNode, ReactNode>(
+    children,
+    (child) => {
+      if (isValidElement(child)) {
+        return cloneElement(child, {
+          disabled: child.props.value !== rest?.defaultValue,
+          // selected: child.props.value === rest?.defaultValue,
+        });
+      }
+    }
+  );
 
   return (
     <div>
@@ -33,13 +48,13 @@ export default function Input({
         {label}
       </label>
       <div className='relative mt-1'>
-        <input
+        <select
           {...register(id, validation)}
+          // defaultValue to value blank, will get overriden by ...rest if needed
+          defaultValue=''
           {...rest}
-          type={type}
           name={id}
           id={id}
-          readOnly={readOnly}
           className={clsx(
             readOnly
               ? 'bg-gray-100 focus:ring-0 cursor-not-allowed border-gray-300 focus:border-gray-300'
@@ -48,9 +63,15 @@ export default function Input({
               : 'focus:ring-primary-500 border-gray-300 focus:border-primary-500',
             'block w-full rounded-md shadow-sm'
           )}
-          placeholder={placeholder}
           aria-describedby={id}
-        />
+        >
+          {placeholder && (
+            <option value='' disabled hidden>
+              {placeholder}
+            </option>
+          )}
+          {readOnly ? readOnlyChildren : children}
+        </select>
 
         {errors[id] && (
           <div className='absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none'>

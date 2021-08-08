@@ -45,8 +45,14 @@ export const stepTwoSchema: yup.SchemaOf<StepTwoData> = yup.object().shape({
   score_file: yup.mixed().required('File is required'),
 });
 
+// @ts-ignore - override correct yup type
+// https://github.com/jquense/yup/issues/1183
+export const requiredDateSchema: yup.SchemaOf<Date> = yup
+  .date()
+  .required('Birth date is required');
+
 export const stepThreeSchema: yup.SchemaOf<StepThreeData> = yup.object().shape({
   // yup date
-  birth_date: yup.date().required('Birth date is required'),
+  birth_date: requiredDateSchema,
   gender: yup.string().required('Gender is required'),
 });

@@ -13,6 +13,7 @@ import Button from '@/components/Button';
 import UnstyledLink from '@/components/UnstyledLink';
 import Input from '@/components/Forms/Input';
 import DatePicker from '@/components/Forms/DatePicker';
+import Select from '@/components/Forms/Select';
 
 export default function StepThreePage() {
   const router = useRouter();
@@ -33,6 +34,7 @@ export default function StepThreePage() {
     // eslint-disable-next-line no-console
     console.log(data);
     setData({ step: 3, data });
+    router.push('/form/recap');
   };
   //#endregion action
 
@@ -65,7 +67,10 @@ export default function StepThreePage() {
                 className='max-w-sm mt-8 space-y-4'
               >
                 <DatePicker id='birth_date' label='Birth Date' />
-                <Input id='gender' label='Gender' />
+                <Select id='gender' label='Gender' placeholder='Choose gender'>
+                  <option value='L'>Male</option>
+                  <option value='P'>Female</option>
+                </Select>
 
                 <Button type='submit'>Next</Button>
               </form>

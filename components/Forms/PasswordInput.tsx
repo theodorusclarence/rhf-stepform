@@ -12,7 +12,7 @@ export default function PasswordInput({
   helperText,
   id,
   type = 'text',
-  readonly = false,
+  readOnly = false,
   validation,
   ...rest
 }: InputProps) {
@@ -36,9 +36,9 @@ export default function PasswordInput({
           type={showPassword ? 'text' : 'password'}
           name={id}
           id={id}
-          readOnly={readonly}
+          readOnly={readOnly}
           className={clsx(
-            readonly
+            readOnly
               ? 'bg-gray-100 focus:ring-0 cursor-not-allowed border-gray-300 focus:border-gray-300'
               : errors[id]
               ? 'focus:ring-red-500 border-red-500 focus:border-red-500'
