@@ -9,7 +9,7 @@ import { stepOneSchema } from '@/lib/yup';
 import { StepOneData } from '@/types';
 
 import Seo from '@/components/Seo';
-import Input from '@/components/Input';
+import Input from '@/components/Forms/Input';
 import Button from '@/components/Button';
 import UnstyledLink from '@/components/UnstyledLink';
 
