@@ -14,6 +14,7 @@ import Seo from '@/components/Seo';
 import Input from '@/components/Forms/Input';
 import Button from '@/components/Button';
 import UnstyledLink from '@/components/UnstyledLink';
+import DropzoneInput from '@/components/Forms/DropzoneInput';
 
 export default function StepTwoPage() {
   const router = useRouter();
@@ -77,7 +78,13 @@ export default function StepTwoPage() {
                 <Input id='score_1' label='Score 1' />
                 <Input id='score_2' label='Score 2' />
                 <Input id='score_3' label='Score 3' />
-                <Input type='file' id='score_file' label='Score File' />
+                <DropzoneInput
+                  label='Score File'
+                  id='score_file'
+                  accept='image/png, image/jpg, image/jpeg'
+                  helperText='You can only drop .jpg, .jpeg, and .png image here'
+                  maxFiles={3}
+                />
 
                 <Button type='submit'>Next</Button>
               </form>
