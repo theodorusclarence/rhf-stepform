@@ -67,7 +67,7 @@ export default function StepThreePage() {
               </UnstyledLink>
               <UnstyledLink
                 className='p-2 text-lg transition-colors bg-white border border-gray-300 rounded hover:bg-gray-100'
-                href='#'
+                href='/form/recap'
               >
                 <HiChevronRight />
               </UnstyledLink>

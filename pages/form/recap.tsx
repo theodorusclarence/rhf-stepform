@@ -16,6 +16,7 @@ import Select from '@/components/Forms/Select';
 import Input from '@/components/Forms/Input';
 import PasswordInput from '@/components/Forms/PasswordInput';
 import CustomLink from '@/components/CustomLink';
+import clsx from 'clsx';
 
 export default function RecapPage() {
   const router = useRouter();
@@ -140,7 +141,17 @@ export default function RecapPage() {
                   </Select>
                 </div>
 
-                <Button type='submit'>console.log</Button>
+                <UnstyledLink
+                  href='/recap-json'
+                  className={clsx(
+                    'inline-block py-2 px-4 rounded font-bold hover:text-primary-400 animated-underline',
+                    'focus:outline-none focus-visible:ring ring-primary-400 ring-offset-2',
+                    'border border-gray-600',
+                    'bg-dark text-white'
+                  )}
+                >
+                  View JSON
+                </UnstyledLink>
               </form>
             </FormProvider>
           </article>
