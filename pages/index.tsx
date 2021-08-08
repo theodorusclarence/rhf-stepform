@@ -8,7 +8,7 @@ export default function Home() {
 
       <main>
         <section className='bg-dark'>
-          <div className='flex flex-col items-center justify-center min-h-screen text-white layout'>
+          <div className='flex flex-col items-center justify-center min-h-screen text-center text-white layout'>
             <h1>
               <CustomLink href='https://github.com/theodorusclarence/rhf-stepform'>
                 Step Form Example
