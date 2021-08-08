@@ -1,3 +1,5 @@
+import { RequiredDateSchema } from 'yup/lib/date';
+
 export type StepOneData = {
   name: string;
   email: string;
@@ -11,4 +13,9 @@ export type StepTwoData = {
   score_2: number;
   score_3: number;
   score_file: any | File;
+};
+
+export type StepThreeData = {
+  birth_date: any;
+  gender: string | 'L' | 'P';
 };

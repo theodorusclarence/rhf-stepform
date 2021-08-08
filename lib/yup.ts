@@ -1,5 +1,5 @@
 import * as yup from 'yup';
-import { StepOneData, StepTwoData } from '@/types';
+import { StepOneData, StepThreeData, StepTwoData } from '@/types';
 
 export const stepOneSchema: yup.SchemaOf<StepOneData> = yup.object().shape({
   name: yup.string().required('Name is required'),
@@ -43,4 +43,10 @@ export const stepTwoSchema: yup.SchemaOf<StepTwoData> = yup.object().shape({
     .lessThan(101, 'Max score is 100')
     .required('Age is required'),
   score_file: yup.mixed().required('File is required'),
+});
+
+export const stepThreeSchema: yup.SchemaOf<StepThreeData> = yup.object().shape({
+  // yup date
+  birth_date: yup.date().required('Birth date is required'),
+  gender: yup.string().required('Gender is required'),
 });

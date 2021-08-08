@@ -4,57 +4,56 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { HiChevronLeft, HiChevronRight } from 'react-icons/hi';
 
 import useFormStore from '@/store/useFormStore';
-import { stepTwoSchema } from '@/lib/yup';
+import { stepThreeSchema } from '@/lib/yup';
 
-import { StepTwoData } from '@/types';
+import { StepThreeData } from '@/types';
 
 import Seo from '@/components/Seo';
-import Input from '@/components/Forms/Input';
 import Button from '@/components/Button';
 import UnstyledLink from '@/components/UnstyledLink';
+import Input from '@/components/Forms/Input';
+import DatePicker from '@/components/Forms/DatePicker';
 
-export default function StepTwoPage() {
+export default function StepThreePage() {
   const router = useRouter();
 
-  const { stepTwo, setData } = useFormStore();
+  const { stepThree, setData } = useFormStore();
 
   //#region //? forms ==================================
   const methods = useForm({
     mode: 'onTouched',
-    resolver: yupResolver(stepTwoSchema),
-    defaultValues: stepTwo || {},
+    resolver: yupResolver(stepThreeSchema),
+    defaultValues: stepThree || {},
   });
   const { handleSubmit } = methods;
   //#endregion forms
 
   //#region //? action ==================================
-  const onSubmit = (data: StepTwoData) => {
+  const onSubmit = (data: StepThreeData) => {
     // eslint-disable-next-line no-console
     console.log(data);
-    setData({ step: 2, data });
-
-    router.push('/form/step-3');
+    setData({ step: 3, data });
   };
   //#endregion action
 
   return (
     <>
-      <Seo templateTitle='Step 2' />
+      <Seo templateTitle='Step 3' />
 
       <main>
         <section className='bg-gray-100'>
           <article className='min-h-screen py-16 layout'>
-            <h1>Step 2</h1>
+            <h1>Step 3</h1>
             <div className='flex items-start mt-4'>
               <UnstyledLink
                 className='p-2 text-lg transition-colors bg-white border border-gray-300 rounded hover:bg-gray-100'
-                href='/form/step-1'
+                href='/form/step-2'
               >
                 <HiChevronLeft />
               </UnstyledLink>
               <UnstyledLink
                 className='p-2 text-lg transition-colors bg-white border border-gray-300 rounded hover:bg-gray-100'
-                href='/form/step-3'
+                href='#'
               >
                 <HiChevronRight />
               </UnstyledLink>
@@ -65,10 +64,8 @@ export default function StepTwoPage() {
                 onSubmit={handleSubmit(onSubmit)}
                 className='max-w-sm mt-8 space-y-4'
               >
-                <Input id='score_1' label='Score 1' />
-                <Input id='score_2' label='Score 2' />
-                <Input id='score_3' label='Score 3' />
-                <Input type='file' id='score_file' label='Score File' />
+                <DatePicker id='birth_date' label='Birth Date' />
+                <Input id='gender' label='Gender' />
 
                 <Button type='submit'>Next</Button>
               </form>
