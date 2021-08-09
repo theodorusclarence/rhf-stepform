@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import dynamic from 'next/dynamic';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/router';
 import { FormProvider, useForm } from 'react-hook-form';
@@ -16,6 +17,10 @@ import UnstyledLink from '@/components/UnstyledLink';
 import Input from '@/components/Forms/Input';
 import DatePicker from '@/components/Forms/DatePicker';
 import Select from '@/components/Forms/Select';
+// @ts-ignore
+const CustomMap = dynamic(() => import('@/components/CustomMap'), {
+  ssr: false,
+});
 
 export default function StepThreePage() {
   const router = useRouter();
@@ -36,7 +41,10 @@ export default function StepThreePage() {
   const methods = useForm({
     mode: 'onTouched',
     resolver: yupResolver(stepThreeSchema),
-    defaultValues: stepThree || {},
+    defaultValues: stepThree || {
+      lat: -6.1754,
+      lng: 106.8272,
+    },
   });
   const { handleSubmit } = methods;
   //#endregion forms
@@ -78,11 +86,23 @@ export default function StepThreePage() {
                 onSubmit={handleSubmit(onSubmit)}
                 className='max-w-sm mt-8 space-y-4'
               >
-                <DatePicker id='birth_date' label='Birth Date' />
+                <DatePicker
+                  id='birth_date'
+                  label='Birth Date'
+                  placeholder='Select your birth date'
+                />
                 <Select id='gender' label='Gender' placeholder='Choose gender'>
                   <option value='L'>Male</option>
                   <option value='P'>Female</option>
                 </Select>
+
+                <div className='flex gap-4'>
+                  <Input id='lat' label='Lat' />
+                  <Input id='lng' label='Long' />
+                </div>
+                <div className='mt-8'>
+                  <CustomMap />
+                </div>
 
                 <Button type='submit'>Next</Button>
               </form>

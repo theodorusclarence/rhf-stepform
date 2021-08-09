@@ -17,6 +17,8 @@ export type StepTwoData = {
 export type StepThreeData = {
   birth_date: Date;
   gender: string;
+  lat: number;
+  lng: number;
 };
 
 export type FormData = StepOneData & StepTwoData & StepThreeData;

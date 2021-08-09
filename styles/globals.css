@@ -87,3 +87,12 @@
   padding-left: 0.7rem;
   border-radius: 0.25rem;
 }
+
+.react-datepicker-popper {
+  z-index: 99999 !important;
+}
+
+/* Leaflet */
+.leaflet-control-geosearch.leaflet-geosearch-bar form {
+  padding: 0;
+}
