@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import { useEffect } from 'react';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/router';
@@ -9,14 +10,13 @@ import useFormStore from '@/store/useFormStore';
 import { FormData } from '@/types';
 
 import Seo from '@/components/Seo';
-import Button from '@/components/Button';
 import UnstyledLink from '@/components/UnstyledLink';
+import CustomLink from '@/components/CustomLink';
 import DatePicker from '@/components/Forms/DatePicker';
 import Select from '@/components/Forms/Select';
 import Input from '@/components/Forms/Input';
 import PasswordInput from '@/components/Forms/PasswordInput';
-import CustomLink from '@/components/CustomLink';
-import clsx from 'clsx';
+import DropzoneInput from '@/components/Forms/DropzoneInput';
 
 export default function RecapPage() {
   const router = useRouter();
@@ -112,12 +112,7 @@ export default function RecapPage() {
                   <Input readOnly id='score_1' label='Score 1' />
                   <Input readOnly id='score_2' label='Score 2' />
                   <Input readOnly id='score_3' label='Score 3' />
-                  {/* <Input
-                    readOnly
-                    type='file'
-                    id='score_file'
-                    label='Score File'
-                  /> */}
+                  <DropzoneInput label='Score File' id='score_file' readOnly />
                   <p className='text-sm text-gray-800'>
                     File preview in progress
                   </p>
