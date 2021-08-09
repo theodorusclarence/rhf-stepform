@@ -113,6 +113,11 @@ export default function RecapPage() {
                   <Input readOnly id='score_2' label='Score 2' />
                   <Input readOnly id='score_3' label='Score 3' />
                   <DropzoneInput label='Score File' id='score_file' readOnly />
+                  <DropzoneInput
+                    label='Identity Card'
+                    id='identity_card'
+                    readOnly
+                  />
                   <p className='text-sm text-gray-800'>
                     File preview in progress
                   </p>

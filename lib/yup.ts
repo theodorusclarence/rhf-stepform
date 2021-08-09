@@ -43,6 +43,7 @@ export const stepTwoSchema: yup.SchemaOf<StepTwoData> = yup.object().shape({
     .lessThan(101, 'Max score is 100')
     .required('Age is required'),
   score_file: yup.mixed().required('File is required'),
+  identity_card: yup.mixed().required('File is required'),
 });
 
 // @ts-ignore - override correct yup type
