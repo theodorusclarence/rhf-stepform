@@ -8,6 +8,7 @@ import {
   HiOutlineExternalLink,
   HiOutlineEye,
   HiOutlinePaperClip,
+  HiOutlinePhotograph,
   HiX,
 } from 'react-icons/hi';
 
@@ -48,7 +49,7 @@ const FilePreview = ({ deleteFile, file }: FilePreviewProps): ReactElement => {
         key={file.name}
       >
         <div className='flex items-center flex-1 w-0'>
-          <HiOutlinePaperClip
+          <HiOutlinePhotograph
             className='flex-shrink-0 w-5 h-5 text-gray-400'
             aria-hidden='true'
           />
@@ -93,7 +94,13 @@ const FilePreview = ({ deleteFile, file }: FilePreviewProps): ReactElement => {
       key={file.name}
       className='flex items-center justify-between py-3 pl-3 pr-4 text-sm'
     >
-      {file.name}
+      <div className='flex items-center flex-1 w-0'>
+        <HiOutlinePaperClip
+          className='flex-shrink-0 w-5 h-5 text-gray-400'
+          aria-hidden='true'
+        />
+        <span className='flex-1 w-0 ml-2 truncate'>{file.name}</span>
+      </div>
       <div className='flex space-x-2'>
         <UnstyledLink href={URL.createObjectURL(file)}>
           <HiOutlineExternalLink
