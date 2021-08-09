@@ -112,12 +112,15 @@ export default function RecapPage() {
                   <Input readOnly id='score_1' label='Score 1' />
                   <Input readOnly id='score_2' label='Score 2' />
                   <Input readOnly id='score_3' label='Score 3' />
-                  <Input
+                  {/* <Input
                     readOnly
                     type='file'
                     id='score_file'
                     label='Score File'
-                  />
+                  /> */}
+                  <p className='text-sm text-gray-800'>
+                    File preview in progress
+                  </p>
                 </div>
 
                 <div className='space-y-4'>
