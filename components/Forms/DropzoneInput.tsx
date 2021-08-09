@@ -105,7 +105,7 @@ const FilePreview = ({ deleteFile, file }: FilePreviewProps): ReactElement => {
         <UnstyledLink href={URL.createObjectURL(file)}>
           <HiOutlineExternalLink
             size={24}
-            className='text-gray-500 cursor-pointer hover:text-gray-700'
+            className='text-gray-500 hover:text-gray-700'
           />
         </UnstyledLink>
         <button type='button' onClick={(e) => deleteFile(e, file)}>
