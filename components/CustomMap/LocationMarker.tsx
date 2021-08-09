@@ -1,26 +1,34 @@
-import { useMapEvents, Marker } from 'react-leaflet';
-import { LatLong } from './types';
 import L from 'leaflet';
 import { Dispatch, SetStateAction } from 'react';
-// import 'leaflet/dist/leaflet.css';
+import { useFormContext } from 'react-hook-form';
+import { useMapEvents, Marker } from 'react-leaflet';
+
+import { getMarkerPosition } from '@/lib/helper';
 
 type LocationMarkerProps = {
-  markerPosition: LatLong;
-  setMarkerPosition: Dispatch<SetStateAction<LatLong>>;
+  setIsDragging: Dispatch<SetStateAction<boolean>>;
 };
 
-export default function LocationMarker({
-  markerPosition,
-  setMarkerPosition,
-}: LocationMarkerProps) {
+export default function LocationMarker({ setIsDragging }: LocationMarkerProps) {
+  const { watch, setValue } = useFormContext();
+  const markerPosition = getMarkerPosition(watch);
+
   const map = useMapEvents({
     drag() {
-      const center = map.getCenter();
-      setMarkerPosition(center);
+      const { lat, lng } = map.getCenter();
+      setValue('lat', lat);
+      setValue('lng', lng);
+    },
+    dragstart() {
+      setIsDragging(true);
+    },
+    dragend() {
+      setIsDragging(false);
     },
     locationfound(e) {
-      setMarkerPosition(e.latlng);
       map.flyTo(e.latlng, map.getZoom());
+      setValue('lat', e.latlng.lat, { shouldValidate: true });
+      setValue('lng', e.latlng.lng, { shouldValidate: true });
     },
   });
 

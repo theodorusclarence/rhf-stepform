@@ -20,3 +20,8 @@ export type StepThreeData = {
 };
 
 export type FormData = StepOneData & StepTwoData & StepThreeData;
+
+export type LatLong = {
+  lat: number;
+  lng: number;
+};

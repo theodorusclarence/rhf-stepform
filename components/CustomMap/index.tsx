@@ -1,23 +1,22 @@
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import { useState } from 'react';
 import { MapContainer, LayersControl } from 'react-leaflet';
 const { BaseLayer } = LayersControl;
+import { useFormContext } from 'react-hook-form';
 import ReactLeafletGoogleLayer from 'react-leaflet-google-layer';
-import { useState } from 'react';
 
-import LocationMarker from './LocationMarker';
+import { getMarkerPosition } from '@/lib/helper';
+
+import LocationMarker from '@/components/CustomMap/LocationMarker';
 import Button from '@/components/Button';
-
 import { LatLong } from './types';
-
-const defaultLoc: LatLong = {
-  lat: -2.9879800596759156,
-  lng: 104.73019636171288,
-};
 
 export default function CustomMap() {
   const [map, setMap] = useState<L.Map | undefined>(undefined);
-  const [markerPosition, setMarkerPosition] = useState(defaultLoc);
+  const [isDragging, setIsDragging] = useState<boolean>(false);
+  const { watch } = useFormContext();
+  const markerPosition = getMarkerPosition(watch);
 
   const handleMapCreated = (map: L.Map) => {
     setMap(map);
@@ -26,6 +25,14 @@ export default function CustomMap() {
   const handleUseCurrent = () => {
     map?.locate();
   };
+
+  // Move map if input is changing
+  // TODO Optimize setView calling
+  !isDragging && map?.setView(markerPosition);
+
+  const distance: string = (
+    (map?.distance(markerPosition, pickedLatlong) ?? 0) / 1000
+  ).toFixed(3);
 
   return (
     <div className='space-y-2'>
@@ -45,17 +52,25 @@ export default function CustomMap() {
             />
           </BaseLayer>
         </LayersControl>
-        <LocationMarker
-          markerPosition={markerPosition}
-          setMarkerPosition={setMarkerPosition}
-        />
+        <LocationMarker setIsDragging={setIsDragging} />
       </MapContainer>
-      <Button onClick={handleUseCurrent}>Use current location</Button>
+      <Button type='button' onClick={handleUseCurrent}>
+        Use current location
+      </Button>
       <div className='space-y-1'>
         <p className='font-medium'>Position:</p>
         <p className='text-sm'>{markerPosition.lat}</p>
         <p className='text-sm'>{markerPosition.lng}</p>
       </div>
+      <div className='space-y-1'>
+        <p className='font-medium'>Distance to Monas: {distance}km</p>
+      </div>
     </div>
   );
 }
+
+// Monas latlong
+const pickedLatlong: LatLong = {
+  lat: -6.1754,
+  lng: 106.8272,
+};
