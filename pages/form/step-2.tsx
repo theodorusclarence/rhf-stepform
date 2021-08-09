@@ -82,7 +82,7 @@ export default function StepTwoPage() {
                   label='Score File'
                   id='score_file'
                   accept='image/png, image/jpg, image/jpeg, application/pdf'
-                  helperText='You can only drop .jpg, .jpeg, and .png image here'
+                  helperText='You can only drop .jpg, .jpeg, .png, and .pdf image here'
                   maxFiles={1}
                 />
 
