@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import { useEffect } from 'react';
+import dynamic from 'next/dynamic';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/router';
 import { FormProvider, useForm } from 'react-hook-form';
@@ -17,6 +18,15 @@ import Select from '@/components/Forms/Select';
 import Input from '@/components/Forms/Input';
 import PasswordInput from '@/components/Forms/PasswordInput';
 import DropzoneInput from '@/components/Forms/DropzoneInput';
+import LoadingMap from '@/components/CustomMap/LoadingMap';
+// @ts-ignore
+const ReadOnlyMap = dynamic(
+  () => import('@/components/CustomMap/ReadOnlyMap'),
+  {
+    ssr: false,
+    loading: LoadingMap,
+  }
+);
 
 export default function RecapPage() {
   const router = useRouter();
@@ -142,6 +152,15 @@ export default function RecapPage() {
                     <option value='L'>Male</option>
                     <option value='P'>Female</option>
                   </Select>
+                  <div>
+                    <div className='flex gap-4'>
+                      <Input readOnly id='lat' label='Lat' />
+                      <Input readOnly id='lng' label='Long' />
+                    </div>
+                    <div className='w-full mt-2'>
+                      <ReadOnlyMap />
+                    </div>
+                  </div>
                 </div>
 
                 <UnstyledLink

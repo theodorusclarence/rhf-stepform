@@ -35,7 +35,7 @@ export default function LocationMarker({ setIsDragging }: LocationMarkerProps) {
   return <Marker position={markerPosition} icon={DefaultIcon}></Marker>;
 }
 
-const DefaultIcon = L.icon({
+export const DefaultIcon = L.icon({
   iconSize: [24, 41],
   iconAnchor: [12, 41],
   iconUrl: '/images/leaflet/marker-icon.png',
