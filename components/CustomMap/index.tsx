@@ -1,10 +1,12 @@
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { useState } from 'react';
+import 'leaflet-geosearch/assets/css/leaflet.css';
+import { useEffect, useState } from 'react';
 import { MapContainer, LayersControl } from 'react-leaflet';
 const { BaseLayer } = LayersControl;
 import { useFormContext } from 'react-hook-form';
 import ReactLeafletGoogleLayer from 'react-leaflet-google-layer';
+import { SearchControl, GoogleProvider } from 'leaflet-geosearch';
 
 import { getMarkerPosition } from '@/lib/helper';
 
@@ -20,6 +22,27 @@ export default function CustomMap() {
 
   const handleMapCreated = (map: L.Map) => {
     setMap(map);
+
+    if (map) {
+      const provider = new GoogleProvider({
+        params: {
+          key: '',
+          language: 'id',
+          region: 'id',
+        },
+      });
+
+      map.addControl(
+        // @ts-ignore
+        new SearchControl({
+          provider: provider,
+          style: 'bar',
+          showMarker: false,
+          showPopup: false,
+          searchLabel: "Search (Won't work due to no API Key)",
+        })
+      );
+    }
   };
 
   const handleUseCurrent = () => {
@@ -28,7 +51,12 @@ export default function CustomMap() {
 
   // Move map if input is changing
   // TODO Optimize setView calling
-  !isDragging && map?.setView(markerPosition);
+  useEffect(() => {
+    if (isDragging) return;
+
+    map?.setView(markerPosition);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isDragging, map, markerPosition.lat, markerPosition.lng]);
 
   const distance: string = (
     (map?.distance(markerPosition, pickedLatlong) ?? 0) / 1000
@@ -41,10 +69,16 @@ export default function CustomMap() {
         zoom={14}
         scrollWheelZoom={false}
         doubleClickZoom={false}
-        center={[-2.9879800596759156, 104.73019636171288]}
+        center={pickedLatlong}
         whenCreated={handleMapCreated}
       >
-        <LayersControl position='topleft' collapsed={false}>
+        <LayersControl position='bottomleft' collapsed={false}>
+          <BaseLayer name='Map'>
+            <ReactLeafletGoogleLayer
+              googleMapsLoaderConf={{ apiKey: '' }}
+              type='roadmap'
+            />
+          </BaseLayer>
           <BaseLayer checked name='Satellite'>
             <ReactLeafletGoogleLayer
               googleMapsLoaderConf={{ apiKey: '' }}
@@ -55,13 +89,8 @@ export default function CustomMap() {
         <LocationMarker setIsDragging={setIsDragging} />
       </MapContainer>
       <Button type='button' onClick={handleUseCurrent}>
-        Use current location
+        Use GPS location
       </Button>
-      <div className='space-y-1'>
-        <p className='font-medium'>Position:</p>
-        <p className='text-sm'>{markerPosition.lat}</p>
-        <p className='text-sm'>{markerPosition.lng}</p>
-      </div>
       <div className='space-y-1'>
         <p className='font-medium'>Distance to Monas: {distance}km</p>
       </div>

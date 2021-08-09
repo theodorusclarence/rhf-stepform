@@ -16,8 +16,8 @@ export default function MapPage() {
   const methods = useForm({
     mode: 'onTouched',
     defaultValues: {
-      lat: -2.9879800596759156,
-      lng: 104.73019636171288,
+      lat: -6.1754,
+      lng: 106.8272,
     },
     resolver: yupResolver(mapSchema),
   });
