@@ -1,5 +1,5 @@
 import * as yup from 'yup';
-import { StepOneData, StepThreeData, StepTwoData } from '@/types';
+import { LatLong, StepOneData, StepThreeData, StepTwoData } from '@/types';
 
 export const stepOneSchema: yup.SchemaOf<StepOneData> = yup.object().shape({
   name: yup.string().required('Name is required'),
@@ -56,4 +56,9 @@ export const stepThreeSchema: yup.SchemaOf<StepThreeData> = yup.object().shape({
   // yup date
   birth_date: requiredDateSchema,
   gender: yup.string().required('Gender is required'),
+});
+
+export const mapSchema: yup.SchemaOf<LatLong> = yup.object().shape({
+  lat: yup.number().typeError('Must be a number').required('Lat is required'),
+  lng: yup.number().typeError('Must be a number').required('Long is required'),
 });
