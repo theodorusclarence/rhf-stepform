@@ -6,10 +6,20 @@ import { mapSchema } from '@/lib/yup';
 
 import Seo from '@/components/Seo';
 import Input from '@/components/Forms/Input';
+import LoadingMap from '@/components/CustomMap/LoadingMap';
 // @ts-ignore
 const CustomMap = dynamic(() => import('@/components/CustomMap'), {
   ssr: false,
+  loading: LoadingMap,
 });
+// @ts-ignore
+const ReadOnlyMap = dynamic(
+  () => import('@/components/CustomMap/ReadOnlyMap'),
+  {
+    ssr: false,
+    loading: LoadingMap,
+  }
+);
 
 export default function MapPage() {
   //#region //? forms ==================================
@@ -37,19 +47,32 @@ export default function MapPage() {
       <main>
         <section className='bg-gray-100'>
           <article className='min-h-screen py-16 layout'>
-            <h1>Map Component</h1>
             <FormProvider {...methods}>
               <form
                 onSubmit={handleSubmit(onSubmit)}
-                className='max-w-sm mt-8 space-y-4'
+                className='flex flex-col gap-12 mt-8 md:flex-row'
               >
-                <div className='flex gap-4'>
-                  <Input id='lat' label='Lat' />
-                  <Input id='lng' label='Long' />
-                </div>
-                <div className='max-w-[500px] w-full mt-8'>
-                  <CustomMap />
-                </div>
+                <figure className='space-y-4'>
+                  <h2>Map Component</h2>
+                  <div className='flex gap-4'>
+                    <Input id='lat' label='Lat' />
+                    <Input id='lng' label='Long' />
+                  </div>
+                  <div className='w-full mt-8'>
+                    <CustomMap />
+                  </div>
+                </figure>
+
+                <figure className='space-y-4'>
+                  <h2>Read Only</h2>
+                  <div className='flex gap-4'>
+                    <Input readOnly id='lat' label='Lat' />
+                    <Input readOnly id='lng' label='Long' />
+                  </div>
+                  <div className='w-full mt-8'>
+                    <ReadOnlyMap />
+                  </div>
+                </figure>
               </form>
             </FormProvider>
           </article>
