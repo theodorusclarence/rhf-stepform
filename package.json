@@ -14,6 +14,7 @@
     "@tailwindcss/forms": "^0.3.3",
     "autoprefixer": "^10.3.1",
     "clsx": "^1.1.1",
+    "leaflet": "^1.7.1",
     "next": "^11.0.0",
     "postcss": "^8.3.6",
     "react": "^17.0.2",
@@ -24,12 +25,15 @@
     "react-hot-toast": "^2.1.0",
     "react-icons": "^4.2.0",
     "react-image-lightbox": "^5.1.4",
+    "react-leaflet": "^3.2.1",
+    "react-leaflet-google-layer": "^2.0.4",
     "yup": "^0.32.9",
     "zustand": "^3.5.7"
   },
   "devDependencies": {
     "@commitlint/cli": "^13.1.0",
     "@commitlint/config-conventional": "^13.1.0",
+    "@types/leaflet": "^1.7.4",
     "@types/react": "^17.0.16",
     "@types/react-datepicker": "^4.1.4",
     "eslint": "^7.32.0",
