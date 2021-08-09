@@ -43,11 +43,13 @@ export default function DropzoneInput({
           message: rejectedFiles && rejectedFiles[0].errors[0].message,
         });
       } else {
-        setValue(id, acceptedFiles, { shouldValidate: true });
+        setValue(id, files ? [...files, ...acceptedFiles] : acceptedFiles, {
+          shouldValidate: true,
+        });
         clearErrors(id);
       }
     },
-    [setValue, id, setError, clearErrors]
+    [files, setValue, id, setError, clearErrors]
   );
 
   const deleteFile = (e: MouseEvent, file: FileWithPath) => {
@@ -106,10 +108,15 @@ export default function DropzoneInput({
                   : 'group-focus:border-primary-500'
               )}
             >
-              <p className='my-20 text-center text-gray-500'>
-                Drag &apos;n&apos; drop some files here, or click to select
-                files
-              </p>
+              <div className='my-20 space-y-2 text-center'>
+                <p className='text-gray-500'>
+                  Drag &apos;n&apos; drop some files here, or click to select
+                  files
+                </p>
+                <p className='text-xs text-gray-500'>{`${
+                  maxFiles - (files?.length || 0)
+                } file(s) remaining`}</p>
+              </div>
             </div>
           </div>
 
