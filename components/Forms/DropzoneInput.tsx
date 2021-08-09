@@ -2,6 +2,7 @@ import { MouseEvent, ReactElement, useCallback, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { FileWithPath, useDropzone } from 'react-dropzone';
 import Lightbox from 'react-image-lightbox';
+import clsx from 'clsx';
 
 import { HiOutlineEye, HiOutlinePaperClip, HiX } from 'react-icons/hi';
 
@@ -50,6 +51,7 @@ const FilePreview = ({ deleteFile, file }: FilePreviewProps): ReactElement => {
         </div>
         <div className='flex-shrink-0 ml-4'>
           <button
+            type='button'
             onClick={() => setIsOpen(true)}
             className='inline-block mr-2 text-xl font-medium text-gray-500 focus:outline-none hover:text-gray-700'
           >
@@ -165,7 +167,7 @@ export default function DropzoneInput({
           <div className='mt-1' {...getRootProps()}>
             <input {...register(id, validation)} id={id} {...getInputProps()} />
             <div
-              className={classNames(
+              className={clsx(
                 'w-full p-2 bg-gray-100 border border-gray-300 border-dashed rounded cursor-pointer',
                 errors[id]
                   ? 'focus:ring-red-500 border-red-500 focus:border-red-500'
