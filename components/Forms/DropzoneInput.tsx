@@ -4,9 +4,14 @@ import { FileWithPath, useDropzone } from 'react-dropzone';
 import Lightbox from 'react-image-lightbox';
 import clsx from 'clsx';
 
-import { HiOutlineEye, HiOutlinePaperClip, HiX } from 'react-icons/hi';
+import {
+  HiOutlineExternalLink,
+  HiOutlineEye,
+  HiOutlinePaperClip,
+  HiX,
+} from 'react-icons/hi';
 
-import { classNames } from '@/lib/helper';
+import UnstyledLink from '@/components/UnstyledLink';
 
 type DropzoneInputProps = {
   accept?: string;
@@ -14,7 +19,7 @@ type DropzoneInputProps = {
   id: string;
   label: string;
   maxFiles?: number;
-  readonly?: boolean;
+  readOnly?: boolean;
   validation?: object;
 };
 
@@ -84,15 +89,26 @@ const FilePreview = ({ deleteFile, file }: FilePreviewProps): ReactElement => {
       )}
     </>
   ) : (
-    <div key={file.name} className='flex px-3 py-2 rounded-lg shadow-lg'>
-      <button
-        onClick={(e) => deleteFile(e, file)}
-        className='flex mr-2 leading-none'
-      >
-        <HiX size={24} className='text-red-500 cursor-pointer' />
-      </button>
+    <li
+      key={file.name}
+      className='flex items-center justify-between py-3 pl-3 pr-4 text-sm'
+    >
       {file.name}
-    </div>
+      <div className='flex space-x-2'>
+        <UnstyledLink href={URL.createObjectURL(file)}>
+          <HiOutlineExternalLink
+            size={24}
+            className='text-gray-500 cursor-pointer hover:text-gray-700'
+          />
+        </UnstyledLink>
+        <button type='button' onClick={(e) => deleteFile(e, file)}>
+          <HiX
+            size={24}
+            className='text-red-500 cursor-pointer hover:text-red-700'
+          />
+        </button>
+      </div>
+    </li>
   );
 };
 

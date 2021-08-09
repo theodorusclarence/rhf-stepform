@@ -81,9 +81,9 @@ export default function StepTwoPage() {
                 <DropzoneInput
                   label='Score File'
                   id='score_file'
-                  accept='image/png, image/jpg, image/jpeg'
+                  accept='image/png, image/jpg, image/jpeg, application/pdf'
                   helperText='You can only drop .jpg, .jpeg, and .png image here'
-                  maxFiles={3}
+                  maxFiles={1}
                 />
 
                 <Button type='submit'>Next</Button>
