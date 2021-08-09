@@ -37,19 +37,25 @@ export default function DropzoneInput({
   const onDrop = useCallback(
     (acceptedFiles, rejectedFiles) => {
       if (rejectedFiles && rejectedFiles.length > 0) {
-        setValue(id, []);
+        setValue(id, files ? [...files] : null);
         setError(id, {
           type: 'manual',
           message: rejectedFiles && rejectedFiles[0].errors[0].message,
         });
       } else {
-        setValue(id, files ? [...files, ...acceptedFiles] : acceptedFiles, {
-          shouldValidate: true,
-        });
+        setValue(
+          id,
+          files
+            ? [...files, ...acceptedFiles].slice(0, maxFiles)
+            : acceptedFiles,
+          {
+            shouldValidate: true,
+          }
+        );
         clearErrors(id);
       }
     },
-    [files, setValue, id, setError, clearErrors]
+    [clearErrors, files, id, maxFiles, setError, setValue]
   );
 
   const deleteFile = (e: MouseEvent, file: FileWithPath) => {
