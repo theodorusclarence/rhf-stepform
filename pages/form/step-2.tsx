@@ -82,7 +82,14 @@ export default function StepTwoPage() {
                   label='Score File'
                   id='score_file'
                   accept='image/png, image/jpg, image/jpeg, application/pdf'
-                  helperText='You can only drop .jpg, .jpeg, .png, or .pdf file here'
+                  helperText='You can only drop .jpg, .jpeg, or .png file here'
+                  maxFiles={3}
+                />
+                <DropzoneInput
+                  label='Identity Card'
+                  id='identity_card'
+                  accept='application/pdf'
+                  helperText='You can only drop .pdf file here'
                   maxFiles={1}
                 />
 

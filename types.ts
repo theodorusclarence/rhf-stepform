@@ -11,6 +11,7 @@ export type StepTwoData = {
   score_2: number;
   score_3: number;
   score_file: any;
+  identity_card: any;
 };
 
 export type StepThreeData = {
