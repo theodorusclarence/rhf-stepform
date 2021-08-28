@@ -1,5 +1,4 @@
 import { MouseEvent, ReactElement, useState } from 'react';
-import { FileWithPath } from 'react-dropzone';
 import Lightbox from 'react-image-lightbox';
 import {
   HiOutlineExternalLink,
@@ -10,16 +9,17 @@ import {
 } from 'react-icons/hi';
 
 import UnstyledLink from '../UnstyledLink';
+import { FileWithPreview } from './DropzoneInput';
 
 type FilePreviewProps = {
-  file: FileWithPath;
+  file: FileWithPreview;
 } & (
   | {
-      deleteFile?: (e: MouseEvent, file: FileWithPath) => void;
+      deleteFile?: (e: MouseEvent, file: FileWithPreview) => void;
       readOnly?: true;
     }
   | {
-      deleteFile: (e: MouseEvent, file: FileWithPath) => void;
+      deleteFile: (e: MouseEvent, file: FileWithPreview) => void;
       readOnly?: false;
     }
 );
@@ -32,7 +32,7 @@ export const FilePreview = ({
   const [index, setIndex] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
 
-  const images = [URL.createObjectURL(file)];
+  const images = [file.preview];
 
   const handleDelete = (e: MouseEvent) => {
     e.stopPropagation();
@@ -104,7 +104,7 @@ export const FilePreview = ({
       </div>
       <div className='flex items-center flex-shrink-0 ml-4 space-x-2'>
         <UnstyledLink
-          href={URL.createObjectURL(file)}
+          href={file.preview}
           className='text-gray-500 rounded focus:ring focus:ring-primary-500 focus:outline-none hover:text-gray-700'
         >
           <HiOutlineExternalLink size={20} />

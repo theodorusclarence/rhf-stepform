@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import { MouseEvent, useCallback, useEffect, useState } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
-import { useDropzone } from 'react-dropzone';
+import { FileWithPath, useDropzone } from 'react-dropzone';
 
 import { FilePreview } from './FilePreview';
 
@@ -14,6 +14,8 @@ type DropzoneInputProps = {
   readOnly?: boolean;
   validation?: object;
 };
+
+export type FileWithPreview = FileWithPath & { preview: string };
 
 export default function DropzoneInput({
   accept,
@@ -34,7 +36,9 @@ export default function DropzoneInput({
     formState: { errors },
   } = useFormContext();
 
-  const [files, setFiles] = useState<any[]>(getValues(id) || []);
+  const [files, setFiles] = useState<Array<FileWithPreview>>(
+    getValues(id) || []
+  );
 
   const onDrop = useCallback(
     (acceptedFiles, rejectedFiles) => {
@@ -45,10 +49,11 @@ export default function DropzoneInput({
           message: rejectedFiles && rejectedFiles[0].errors[0].message,
         });
       } else {
-        const acceptedFilesPreview = acceptedFiles.map((file: any) =>
-          Object.assign(file, {
-            preview: URL.createObjectURL(file),
-          })
+        const acceptedFilesPreview = acceptedFiles.map(
+          (file: FileWithPreview) =>
+            Object.assign(file, {
+              preview: URL.createObjectURL(file),
+            })
         );
 
         setFiles(
@@ -80,7 +85,7 @@ export default function DropzoneInput({
     };
   }, [files]);
 
-  const deleteFile = (e: MouseEvent, file: any) => {
+  const deleteFile = (e: MouseEvent, file: FileWithPreview) => {
     e.preventDefault();
     const newFiles = [...files];
 
@@ -88,10 +93,18 @@ export default function DropzoneInput({
 
     if (newFiles.length > 0) {
       setFiles(newFiles);
-      setValue(id, newFiles);
+      setValue(id, newFiles, {
+        shouldValidate: true,
+        shouldDirty: true,
+        shouldTouch: true,
+      });
     } else {
       setFiles([]);
-      setValue(id, []);
+      setValue(id, null, {
+        shouldValidate: true,
+        shouldDirty: true,
+        shouldTouch: true,
+      });
     }
   };
 
