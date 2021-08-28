@@ -1,3 +1,5 @@
+import { FileWithPath } from 'react-dropzone';
+
 export type StepOneData = {
   name: string;
   email: string;
@@ -10,8 +12,8 @@ export type StepTwoData = {
   score_1: number;
   score_2: number;
   score_3: number;
-  score_file: any;
-  identity_card: any;
+  score_file: FileWithPreview[];
+  identity_card: FileWithPreview[];
 };
 
 export type StepThreeData = {
@@ -27,3 +29,5 @@ export type LatLong = {
   lat: number;
   lng: number;
 };
+
+export type FileWithPreview = FileWithPath & { preview: string };
