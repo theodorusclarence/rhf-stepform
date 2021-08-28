@@ -4,6 +4,7 @@ import { Controller, useFormContext } from 'react-hook-form';
 import { FileWithPath, useDropzone } from 'react-dropzone';
 
 import { FilePreview } from './FilePreview';
+import { FileWithPreview } from '@/types';
 
 type DropzoneInputProps = {
   accept?: string;
@@ -14,8 +15,6 @@ type DropzoneInputProps = {
   readOnly?: boolean;
   validation?: object;
 };
-
-export type FileWithPreview = FileWithPath & { preview: string };
 
 export default function DropzoneInput({
   accept,
@@ -36,9 +35,7 @@ export default function DropzoneInput({
     formState: { errors },
   } = useFormContext();
 
-  const [files, setFiles] = useState<Array<FileWithPreview>>(
-    getValues(id) || []
-  );
+  const [files, setFiles] = useState<FileWithPreview[]>(getValues(id) || []);
 
   const onDrop = useCallback(
     (acceptedFiles, rejectedFiles) => {
@@ -116,7 +113,7 @@ export default function DropzoneInput({
   });
 
   return (
-    <>
+    <div>
       <label className='block text-sm font-normal text-gray-700' htmlFor={id}>
         {label}
       </label>
@@ -126,7 +123,7 @@ export default function DropzoneInput({
           No file uploaded
         </div>
       ) : files?.length >= maxFiles ? (
-        <ul className='border border-gray-300 divide-y divide-gray-300 rounded-md'>
+        <ul className='mt-1 border border-gray-300 divide-y divide-gray-300 rounded-md'>
           {files.map((file, index) => (
             <FilePreview
               key={index}
@@ -178,7 +175,7 @@ export default function DropzoneInput({
                 )}
               </div>
               {!readOnly && !!files?.length && (
-                <ul className='border border-gray-300 divide-y divide-gray-300 rounded-md'>
+                <ul className='mt-1 border border-gray-300 divide-y divide-gray-300 rounded-md'>
                   {files.map((file, index) => (
                     <FilePreview
                       key={index}
@@ -193,6 +190,6 @@ export default function DropzoneInput({
           )}
         />
       )}
-    </>
+    </div>
   );
 }

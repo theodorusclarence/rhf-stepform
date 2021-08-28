@@ -23,6 +23,8 @@ export const stepOneSchema: yup.SchemaOf<StepOneData> = yup.object().shape({
     .required('Phone is required'),
 });
 
+// @ts-ignore - file type still not found
+// TODO Should be ArraySchema<ObjectSchemaOf<FileWithPreview> | Lazy<ObjectSchemaOf<FileWithPreview>, any>, AnyObject
 export const stepTwoSchema: yup.SchemaOf<StepTwoData> = yup.object().shape({
   score_1: yup
     .number()
@@ -42,8 +44,8 @@ export const stepTwoSchema: yup.SchemaOf<StepTwoData> = yup.object().shape({
     .positive('Must be a positive value')
     .lessThan(101, 'Max score is 100')
     .required('Age is required'),
-  score_file: yup.mixed().required('File is required'),
   identity_card: yup.mixed().required('File is required'),
+  score_file: yup.mixed().required('File is required'),
 });
 
 // @ts-ignore - override correct yup type

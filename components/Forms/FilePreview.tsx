@@ -9,7 +9,7 @@ import {
 } from 'react-icons/hi';
 
 import UnstyledLink from '../UnstyledLink';
-import { FileWithPreview } from './DropzoneInput';
+import { FileWithPreview } from '@/types';
 
 type FilePreviewProps = {
   file: FileWithPreview;
