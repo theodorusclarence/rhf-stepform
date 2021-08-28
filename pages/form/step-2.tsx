@@ -21,12 +21,12 @@ export default function StepTwoPage() {
 
   const { stepOne, stepTwo, setData } = useFormStore();
 
-  useEffect(() => {
-    if (!stepOne) {
-      toast.error('Please fill step one first');
-      router.push('/form/step-1');
-    }
-  }, [router, stepOne]);
+  // useEffect(() => {
+  //   if (!stepOne) {
+  //     toast.error('Please fill step one first');
+  //     router.push('/form/step-1');
+  //   }
+  // }, [router, stepOne]);
 
   //#region //? forms ==================================
   const methods = useForm({

@@ -33,18 +33,18 @@ export default function RecapPage() {
 
   const { stepOne, stepTwo, stepThree } = useFormStore();
 
-  useEffect(() => {
-    if (!stepOne) {
-      toast.error('Please fill step one first');
-      router.push('/form/step-1');
-    } else if (!stepTwo) {
-      toast.error('Please fill step two first');
-      router.push('/form/step-2');
-    } else if (!stepThree) {
-      toast.error('Please fill step three first');
-      router.push('/form/step-3');
-    }
-  }, [router, stepOne, stepThree, stepTwo]);
+  // useEffect(() => {
+  //   if (!stepOne) {
+  //     toast.error('Please fill step one first');
+  //     router.push('/form/step-1');
+  //   } else if (!stepTwo) {
+  //     toast.error('Please fill step two first');
+  //     router.push('/form/step-2');
+  //   } else if (!stepThree) {
+  //     toast.error('Please fill step three first');
+  //     router.push('/form/step-3');
+  //   }
+  // }, [router, stepOne, stepThree, stepTwo]);
 
   //#region //? forms ==================================
   const methods = useForm({
