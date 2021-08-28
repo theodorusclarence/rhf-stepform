@@ -14,11 +14,23 @@ function clean(input: string): number {
   else return parseFloat(replaced);
 }
 
-export function getMarkerPosition(watch: (name: string) => number): LatLong {
+export function getMarkerPosition(
+  watch: (name: string) => number,
+  fallback?: LatLong
+): LatLong {
   const lat: number = watch('lat');
   const lng: number = watch('lng');
+
+  if (lat && lng)
+    return {
+      lat: clean(lat + ''),
+      lng: clean(lng + ''),
+    };
+
+  if (fallback) return fallback;
+
   return {
-    lat: clean(lat + ''),
-    lng: clean(lng + ''),
+    lat: 0,
+    lng: 0,
   };
 }

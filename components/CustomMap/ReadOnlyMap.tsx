@@ -16,7 +16,7 @@ import { LatLong } from './types';
 export default function ReadOnlyMap() {
   const [map, setMap] = useState<L.Map | undefined>(undefined);
   const { watch } = useFormContext();
-  const markerPosition = getMarkerPosition(watch);
+  const markerPosition = getMarkerPosition(watch, pickedLatlong);
 
   const handleMapCreated = (map: L.Map) => {
     setMap(map);
