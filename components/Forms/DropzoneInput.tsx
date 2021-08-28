@@ -12,6 +12,7 @@ type DropzoneInputProps = {
   label: string;
   maxFiles?: number;
   readOnly?: boolean;
+  editable?: boolean;
   validation?: object;
 };
 
@@ -23,6 +24,7 @@ export default function DropzoneInput({
   maxFiles = 1,
   validation,
   readOnly,
+  editable = false,
 }: DropzoneInputProps) {
   const {
     register,
@@ -34,6 +36,7 @@ export default function DropzoneInput({
   } = useFormContext();
 
   const files: FileWithPath[] = watch(id);
+  console.log('🚀 ~ file: DropzoneInput.tsx ~ line 39 ~ files', files);
   const onDrop = useCallback(
     (acceptedFiles, rejectedFiles) => {
       if (rejectedFiles && rejectedFiles.length > 0) {
@@ -50,6 +53,7 @@ export default function DropzoneInput({
             : acceptedFiles,
           {
             shouldValidate: true,
+            shouldDirty: true,
           }
         );
         clearErrors(id);
@@ -71,6 +75,10 @@ export default function DropzoneInput({
     }
   };
 
+  const removeAllFiles = () => {
+    setValue(id, null, { shouldValidate: true, shouldDirty: true });
+  };
+
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
     accept,
@@ -79,10 +87,22 @@ export default function DropzoneInput({
   });
 
   return (
-    <>
-      <label className='block text-sm font-normal text-gray-700' htmlFor={id}>
-        {label}
-      </label>
+    <div>
+      <div className='flex justify-between'>
+        <label className='block text-sm font-normal text-gray-700' htmlFor={id}>
+          {label}
+        </label>
+
+        {editable && (
+          <button
+            type='button'
+            onClick={removeAllFiles}
+            className='text-sm font-medium text-gray-700 hover:text-black hover:underline'
+          >
+            Edit
+          </button>
+        )}
+      </div>
 
       {readOnly && !(files?.length > 0) ? (
         <div className='py-3 pl-3 pr-4 text-sm border border-gray-300 divide-y divide-gray-300 rounded-md'>
@@ -135,7 +155,7 @@ export default function DropzoneInput({
             )}
           </div>
           {!readOnly && !!files?.length && (
-            <ul className='border border-gray-300 divide-y divide-gray-300 rounded-md'>
+            <ul className='mt-2 border border-gray-300 divide-y divide-gray-300 rounded-md'>
               {files.map((file, index) => (
                 <FilePreview
                   key={index}
@@ -148,6 +168,6 @@ export default function DropzoneInput({
           )}
         </>
       )}
-    </>
+    </div>
   );
 }

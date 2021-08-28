@@ -27,15 +27,15 @@ export default function StepThreePage() {
 
   const { stepOne, stepTwo, stepThree, setData } = useFormStore();
 
-  useEffect(() => {
-    if (!stepOne) {
-      toast.error('Please fill step one first');
-      router.push('/form/step-1');
-    } else if (!stepTwo) {
-      toast.error('Please fill step two first');
-      router.push('/form/step-2');
-    }
-  }, [router, stepOne, stepTwo]);
+  // useEffect(() => {
+  //   if (!stepOne) {
+  //     toast.error('Please fill step one first');
+  //     router.push('/form/step-1');
+  //   } else if (!stepTwo) {
+  //     toast.error('Please fill step two first');
+  //     router.push('/form/step-2');
+  //   }
+  // }, [router, stepOne, stepTwo]);
 
   //#region //? forms ==================================
   const methods = useForm({

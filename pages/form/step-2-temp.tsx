@@ -4,7 +4,6 @@ import { useRouter } from 'next/router';
 import { FormProvider, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { HiChevronLeft, HiChevronRight } from 'react-icons/hi';
-import pick from 'lodash.pick';
 
 import useFormStore from '@/store/useFormStore';
 import { stepTwoSchema } from '@/lib/yup';
@@ -43,15 +42,7 @@ export default function StepTwoPage() {
     resolver: yupResolver(stepTwoSchema),
     defaultValues: stepTwo || {},
   });
-  const {
-    handleSubmit,
-    watch,
-    formState: { dirtyFields },
-  } = methods;
-  console.log(
-    '🚀 ~ file: step-2.tsx ~ line 46 ~ StepTwoPage ~ dirtyFields',
-    dirtyFields
-  );
+  const { handleSubmit, watch } = methods;
 
   const identity_card = watch('identity_card');
   console.log(
@@ -61,28 +52,37 @@ export default function StepTwoPage() {
   //#endregion forms
 
   //#region //? action ==================================
-
   const onSubmit = async (data: StepTwoData) => {
     // eslint-disable-next-line no-console
     console.log(data);
-    const dirtyFieldsKey = Object.keys(dirtyFields);
+    const parsedData: ParsedData = {
+      ...data,
+      identity_card_file: [URL.createObjectURL(data.identity_card[0])],
+    };
     console.log(
-      '🚀 ~ file: step-2.tsx ~ line 69 ~ onSubmit ~ dirtyFieldsKey',
-      dirtyFieldsKey
+      '🚀 ~ file: step-2.tsx ~ line 46 ~ onSubmit ~ parsedData',
+      parsedData
     );
+    setData({ step: 2, data: parsedData });
 
-    if (!dirtyFieldsKey.length) {
-      return;
-    } else if (stepTwo) {
-      const pickedData = pick(data, Object.keys(dirtyFields));
-      console.log(
-        '🚀 ~ file: step-2.tsx ~ line 71 ~ onSubmit ~ pickedData',
-        pickedData
-      );
-      setData({ step: 2, data: { ...stepTwo, ...pickedData } });
-    } else {
-      setData({ step: 2, data });
-    }
+    var formData = new FormData();
+
+    const blob = await fetch(parsedData.identity_card_file[0]).then((r) =>
+      r.blob()
+    );
+    formData.append('identity_card', parsedData.identity_card[0]);
+    formData.append('identity_card_file', blob);
+
+    fetch('https://dummyapi.io/data/api/post', {
+      // content-type header should not be specified!
+      method: 'POST',
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then((success) => {
+        // Do something with the successful response
+      })
+      .catch((error) => console.log(error));
     // router.push('/form/step-3');
   };
   //#endregion action
