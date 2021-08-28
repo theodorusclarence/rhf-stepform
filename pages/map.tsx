@@ -7,6 +7,7 @@ import { mapSchema } from '@/lib/yup';
 import Seo from '@/components/Seo';
 import Input from '@/components/Forms/Input';
 import LoadingMap from '@/components/CustomMap/LoadingMap';
+import clsx from 'clsx';
 // @ts-ignore
 const CustomMap = dynamic(() => import('@/components/CustomMap'), {
   ssr: false,
@@ -31,7 +32,9 @@ export default function MapPage() {
     },
     resolver: yupResolver(mapSchema),
   });
-  const { handleSubmit } = methods;
+  const { handleSubmit, watch } = methods;
+  const lat = watch('lat');
+  const lng = watch('lng');
   //#endregion forms
 
   //#region //? action ==================================
@@ -52,7 +55,7 @@ export default function MapPage() {
                 onSubmit={handleSubmit(onSubmit)}
                 className='flex flex-col gap-12 mt-8 md:flex-row'
               >
-                <figure className='space-y-4'>
+                <figure className='w-full space-y-4'>
                   <h2>Map Component</h2>
                   <div className='flex gap-4'>
                     <Input id='lat' label='Lat' />
@@ -63,11 +66,39 @@ export default function MapPage() {
                   </div>
                 </figure>
 
-                <figure className='space-y-4'>
+                <figure className='w-full space-y-4'>
                   <h2>Read Only</h2>
                   <div className='flex gap-4'>
-                    <Input readOnly id='lat' label='Lat' />
-                    <Input readOnly id='lng' label='Long' />
+                    <div className='w-full'>
+                      <p className='block text-sm font-normal text-gray-700'>
+                        Lat
+                      </p>
+                      <div className='relative mt-1'>
+                        <div
+                          className={clsx(
+                            'bg-gray-100 px-3 py-2 focus:ring-0 border cursor-not-allowed border-gray-300 focus:border-gray-300',
+                            'block w-full rounded-md shadow-sm'
+                          )}
+                        >
+                          {lat}
+                        </div>
+                      </div>
+                    </div>
+                    <div className='w-full'>
+                      <p className='block text-sm font-normal text-gray-700'>
+                        Long
+                      </p>
+                      <div className='relative mt-1'>
+                        <div
+                          className={clsx(
+                            'bg-gray-100 px-3 py-2 focus:ring-0 border cursor-not-allowed border-gray-300 focus:border-gray-300',
+                            'block w-full rounded-md shadow-sm'
+                          )}
+                        >
+                          {lng}
+                        </div>
+                      </div>
+                    </div>
                   </div>
                   <div className='w-full mt-8'>
                     <ReadOnlyMap />
