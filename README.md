@@ -1,6 +1,6 @@
 # React-Hook-Form Stepform
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ![rhf-stepform](https://socialify.git.ci/theodorusclarence/rhf-stepform/image?description=1&language=1&owner=1&pattern=Charlie%20Brown&stargazers=1&theme=Dark)
@@ -61,6 +61,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <table>
   <tr>
     <td align="center"><a href="https://theodorusclarence.com"><img src="https://avatars.githubusercontent.com/u/55318172?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Theodorus Clarence</b></sub></a><br /><a href="https://github.com/theodorusclarence/rhf-stepform/commits?author=theodorusclarence" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/rizqitsani"><img src="https://avatars.githubusercontent.com/u/68275535?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Muhammad Rizqi Tsani</b></sub></a><br /><a href="https://github.com/theodorusclarence/rhf-stepform/commits?author=rizqitsani" title="Code">💻</a></td>
   </tr>
 </table>
 
