@@ -6,7 +6,7 @@ const defaultMeta = {
   site_name: 'Step Form Example',
   description:
     'Step form built using React Hook Form, Yup, Typescript, and Zustand',
-  url: 'https://rhf-step.theodorusclarence.com',
+  url: 'https://rhf-step.thcl.dev',
   image: 'https://theodorusclarence.com/favicon/large-og.jpg',
   type: 'website',
   robots: 'follow, index',

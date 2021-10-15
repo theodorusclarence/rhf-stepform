@@ -10,7 +10,7 @@ export default function CustomLink({
     <UnstyledLink
       {...rest}
       className={clsx(
-        'inline-flex items-center font-bold hover:text-primary-400 animated-underline',
+        'inline-flex items-center font-bold animated-underline',
         className
       )}
     >
